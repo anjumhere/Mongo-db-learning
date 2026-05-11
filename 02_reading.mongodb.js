@@ -10,6 +10,23 @@ use("ecommerce");
 // db.products.find({ price: { $gte: 1000, $lte: 50000 } });
 
 // Use the $or logical operator to find documents that match either condition.
-db.products.find({
-  $or: [{ category: "Electronics" }, { stock: { $gt: 80 } }],
-});
+// db.products.find({
+//   $or: [{ category: "Electronics" }, { stock: { $gt: 80 } }],
+// });
+
+// db.products.find({
+//   $or: [{ category: "Electronics" }, { stock: { $gt: 50 } }],
+// });
+
+// db.products.find({ price: { $lt: 5000 } });
+// db.products.find({
+//   $or: [{ categegory: "Electronics" }, { price: { $gt: 50000 } }],
+// });
+
+// db.products.find({}, { name: 1, price: 1, _id: 0 });
+
+// sorting and pagination
+// db.products.find().sort({ price: -1 }).limit(6);
+///////////bring all items //// sort: price decdending order///// limit : 6///
+// db.products.find().sort({ price: -1 }).skip(1).limit(1);
+// db.products.find().sort({ price: -1 }).skip(1).limit(1).toArray();
