@@ -1,17 +1,16 @@
-// Switch to the `ecommerce` database. If it does not exist, MongoDB creates it when data is inserted.
+// Switch to the `ecommerce` database. This sets the active database context for all following operations.
 use("ecommerce");
 
-// Insert multiple documents into the `products` collection using insertMany().
+// Insert multiple product documents in a single operation.
 // db.products.insertMany([
 //   {
 //     name: "Wireless Mouse",
 //     price: 799,
 //     category: "Electronics",
-
 //     stock: 120,
 //     ratings: 4.5,
 //     tags: ["computer", "accessory", "wireless"],
-//     createdAt: new Date(),
+//     createdAt: new Date(), // timestamp field example
 //   },
 //   {
 //     name: "Mechanical Keyboard",
@@ -33,7 +32,7 @@ use("ecommerce");
 //   },
 // ]);
 
-// // Insert multiple documents into the `orders` collection using insertMany().
+// Insert multiple order documents with embedded arrays for purchased products.
 // db.orders.insertMany([
 //   {
 //     orderId: "ORD001",
@@ -46,7 +45,6 @@ use("ecommerce");
 //     status: "Delivered",
 //     createdAt: new Date(),
 //   },
-
 //   {
 //     orderId: "ORD002",
 //     user: "Jane Smith",
@@ -57,7 +55,7 @@ use("ecommerce");
 //   },
 // ]);
 
-// // Insert multiple documents into the `contacts` collection using insertMany().
+// Insert multiple contact documents used for customer inquiries.
 // db.contacts.insertMany([
 //   {
 //     name: "Alice",

@@ -1,77 +1,126 @@
 # MongoDB Practice
 
-This workspace contains two MongoDB practice files:
+This workspace contains MongoDB learning scripts for database setup, queries, updates, aggregation pipelines, and indexing.
+
+Files included:
 
 - `01_learning.setup.mongodb.js`
 - `02_reading.mongodb.js`
+- `03_update.mongodb.js`
+- `04_aggregation.mongodb.js`
+- `05_index.mongodb.js`
+- `revise/setup.mongodb.js`
 
 ## 01_learning.setup.mongodb.js
 
-This file sets up the sample `ecommerce` database and inserts documents into three collections.
+This file sets up the sample `ecommerce` database and includes example document inserts for three collections:
 
-### What is done here
+- `products`
+- `orders`
+- `contacts`
 
-- `use("ecommerce")`
-  - Switches to the `ecommerce` database. If the database does not exist, MongoDB creates it when data is inserted.
+### Concepts covered
 
-- `db.products.insertMany([...])`
-  - Inserts multiple documents into the `products` collection.
-  - Each product document includes fields such as `name`, `price`, `category`, `stock`, `ratings`, `tags`, and `createdAt`.
+- `use("ecommerce")` — switch the active database context.
+- `db.collection.insertMany([...])` — insert multiple documents in one operation.
+- `new Date()` — generate timestamps for `createdAt` fields.
+- Arrays and embedded objects in documents (`tags`, `products`).
 
-- `db.orders.insertMany([...])`
-  - Inserts multiple documents into the `orders` collection.
-  - Each order document includes fields like `orderId`, `user`, `products` (embedded array), `total`, `status`, and `createdAt`.
+### Collections and fields
 
-- `db.contacts.insertMany([...])`
-  - Inserts multiple documents into the `contacts` collection.
-  - Each contact document includes fields `name`, `message`, `phone`, and `createdAt`.
-
-### Methods used
-
-- `use(dbName)` — change active database context.
-- `db.collection.insertMany(array)` — insert many documents in a single operation.
-- `new Date()` — set the current timestamp for `createdAt` fields.
+- `products`: stores product details such as `name`, `price`, `category`, `stock`, `ratings`, `tags`, and `createdAt`.
+- `orders`: stores order records with `orderId`, `user`, `products` (embedded array), `total`, `status`, and `createdAt`.
+- `contacts`: stores messages from users with `name`, `message`, `phone`, and `createdAt`.
 
 ## 02_reading.mongodb.js
 
-This file demonstrates reading data from the `products` collection using different query filters.
+This file shows how to read data from the `products` collection using a range of query patterns.
 
-### What is done here
+### Concepts covered
 
-- `use("ecommerce")`
-  - Ensures the script is running against the same `ecommerce` database.
+- `db.collection.find(query)` — query documents in a collection.
+- query operators: `$gt`, `$gte`, `$lte`, `$lt`, and `$or`.
+- projection with `find({}, { field: 1, _id: 0 })` to return only selected fields.
+- sorting and pagination with `sort()`, `skip()`, and `limit()`.
 
-- `db.products.find({...})`
-  - Reads documents from the `products` collection that match the query filter.
+### Example query patterns
 
-### Queries shown
+- exact match by `name` or `category`
+- comparison filters on `price`
+- logical `OR` queries across fields
+- retrieving only selected fields (projection)
+- sorting by `price` and limiting the result set
 
-- `db.products.find({ name: "Mechanical Keyboard" })`
-  - Finds products with the exact `name` value.
+## 03_update.mongodb.js
 
-- `db.products.find({ category: "Electronics" })`
-  - Finds products in the `Electronics` category.
+This file demonstrates update and delete operations in MongoDB.
 
-- `db.products.find({ price: { $gt: 1000 } })`
-  - Finds products with `price` greater than `1000`.
+### Concepts covered
 
-- `db.products.find({ price: { $gte: 1000, $lte: 50000 } })`
-  - Finds products with `price` between `1000` and `50000` inclusive.
+- `db.collection.updateOne(filter, update)` — update a single matching document.
+- `db.collection.updateMany(filter, update)` — update all documents matching a filter.
+- update operators: `$set`, `$inc`, `$push`.
+- `db.collection.deleteOne(filter)` — delete a single matching document.
 
-- `db.products.find({ $or: [{ category: "Electronics" }, { stock: { $gt: 80 } }] })`
-  - Finds products where either the `category` is `Electronics` or the `stock` is greater than `80`.
+### Example operations
 
-### Methods/operators used
+- update the price of a product using `$set`
+- increment stock values using `$inc`
+- add a new tag to an array field using `$push`
+- remove a contact document using `deleteOne`
 
-- `db.collection.find(query)` — read documents that match a query.
-- `$gt`, `$gte`, `$lte` — comparison operators for greater than, greater than or equal, and less than or equal.
-- `$or` — logical OR operator to match documents that satisfy at least one condition.
+## 04_aggregation.mongodb.js
+
+This file explains MongoDB aggregation pipelines using the `sales` collection.
+
+### Concepts covered
+
+- `db.collection.aggregate([...])` — run an aggregation pipeline.
+- pipeline stages: `$match`, `$project`, `$group`.
+- `$match` for filtering documents like `find()`.
+- `$project` for selecting or reshaping fields.
+- `$group` for aggregation operations such as `sum` and `multiply`.
+- stage chaining: output from one stage is passed to the next.
+
+### Example aggregation patterns
+
+- filter sales by category
+- project specific fields while hiding `_id`
+- group documents by category and compute total sales with `$sum` and `$multiply`
+
+## 05_index.mongodb.js
+
+This file shows how to inspect and create indexes.
+
+### Concepts covered
+
+- `db.collection.getIndexes()` — list all indexes on a collection.
+- `db.collection.createIndex(indexSpec)` — create a new index.
+- index direction: `1` for ascending indexes.
+
+### Example pattern
+
+- create an ascending index on the `quantity` field in the `sales` collection.
+- inspect indexes after creation.
+
+## revise/setup.mongodb.js
+
+This file contains a duplicate setup script for the `ecommerce` database with explicit insert examples.
+
+### Concepts covered
+
+- repeated insert examples for `products`, `orders`, and `contacts`
+- showing how arrays and embedded objects are structured in sample data
+- using the same `use("ecommerce")` database context
 
 ## Summary
 
-These files show practical MongoDB usage for:
+Together, these scripts walk through a complete MongoDB learning path:
 
-- selecting a database with `use()`;
-- inserting multiple documents using `insertMany()`;
-- reading documents using `find()` with filters;
-- using comparison operators (`$gt`, `$gte`, `$lte`) and logical operators like `$or`.
+- database selection with `use()`
+- inserting documents with `insertMany()`
+- reading documents with `find()` and query operators
+- updating documents with `updateOne()` / `updateMany()`
+- deleting documents with `deleteOne()`
+- building aggregation pipelines with `aggregate()`
+- creating and inspecting indexes with `createIndex()` and `getIndexes()`

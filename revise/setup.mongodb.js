@@ -1,10 +1,12 @@
+// Switch to the `ecommerce` database before inserting documents.
 use("ecommerce");
+
+// Insert sample product documents into the products collection.
 db.products.insertMany([
   {
     name: "Wireless Mouse",
     price: 799,
     category: "Electronics",
-
     stock: 120,
     ratings: 4.5,
     tags: ["computer", "accessory", "wireless"],
@@ -29,6 +31,8 @@ db.products.insertMany([
     createdAt: new Date(),
   },
 ]);
+
+// Insert example order documents with embedded product arrays.
 db.orders.insertMany([
   {
     orderId: "ORD001",
@@ -41,7 +45,6 @@ db.orders.insertMany([
     status: "Delivered",
     createdAt: new Date(),
   },
-
   {
     orderId: "ORD002",
     user: "Jane Smith",
@@ -51,6 +54,8 @@ db.orders.insertMany([
     createdAt: new Date(),
   },
 ]);
+
+// Insert sample contacts for the contacts collection.
 db.contacts.insertMany([
   {
     name: "Alice",
